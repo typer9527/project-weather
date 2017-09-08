@@ -1,5 +1,6 @@
 package com.yl.weather;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -23,6 +24,7 @@ import com.bumptech.glide.Glide;
 import com.yl.weather.gson.Forecast;
 import com.yl.weather.gson.Utility;
 import com.yl.weather.gson.Weather;
+import com.yl.weather.service.AutoUpdateService;
 import com.yl.weather.util.HttpUtil;
 
 import java.io.IOException;
@@ -100,6 +102,9 @@ public class WeatherActivity extends AppCompatActivity {
             Weather weather = Utility.handleWeatherResponse(weatherString);
             mWeatherId = weather.basic.weatherId;
             showWeatherInfo(weather);
+            // 开启后台更新服务
+            Intent intent = new Intent(this, AutoUpdateService.class);
+            startService(intent);
         } else {
             // 无缓存时去服务器查询
             mWeatherId = getIntent().getStringExtra("weather_id");
