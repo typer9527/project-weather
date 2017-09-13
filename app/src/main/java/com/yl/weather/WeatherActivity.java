@@ -11,6 +11,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -162,6 +163,8 @@ public class WeatherActivity extends AppCompatActivity {
                         swipeRefresh.setRefreshing(false);
                     }
                 });
+                // 测试Git功能
+                Log.e("Git", "onFailure: 测试Git功能");
             }
 
             @Override
