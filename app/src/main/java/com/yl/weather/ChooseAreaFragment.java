@@ -61,6 +61,11 @@ public class ChooseAreaFragment extends Fragment {
         View statusBar = view.findViewById(R.id.status_bar);
         ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
         layoutParams.height = getStatusBarHeight();
+        if (getActivity() instanceof MainActivity) {
+            statusBar.setVisibility(View.GONE);
+        } else {
+            statusBar.setVisibility(View.VISIBLE);
+        }
 
         titleText = (TextView) view.findViewById(R.id.title_text);
         backButton = (Button) view.findViewById(R.id.back_button);
