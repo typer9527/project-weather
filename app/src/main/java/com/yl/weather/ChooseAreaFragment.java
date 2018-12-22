@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,7 +42,7 @@ public class ChooseAreaFragment extends Fragment {
     public static final int LEVEL_COUNTY = 2;
     private ProgressDialog progressDialog;
     private TextView titleText;
-    private Button backButton;
+    private ImageView backImageView;
     private ListView listView;
     private ArrayAdapter<String> adapter;
     private List<String> dataList = new ArrayList<>();
@@ -67,9 +67,9 @@ public class ChooseAreaFragment extends Fragment {
             statusBar.setVisibility(View.VISIBLE);
         }
 
-        titleText = (TextView) view.findViewById(R.id.title_text);
-        backButton = (Button) view.findViewById(R.id.back_button);
-        listView = (ListView) view.findViewById(R.id.list_view);
+        titleText = view.findViewById(R.id.title_text);
+        backImageView = view.findViewById(R.id.back_image);
+        listView = view.findViewById(R.id.list_view);
         adapter = new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_list_item_1, dataList);
         listView.setAdapter(adapter);
@@ -117,7 +117,7 @@ public class ChooseAreaFragment extends Fragment {
                 }
             }
         });
-        backButton.setOnClickListener(new View.OnClickListener() {
+        backImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (currentLevel == LEVEL_COUNTY) {
@@ -132,7 +132,7 @@ public class ChooseAreaFragment extends Fragment {
 
     private void queryProvinces() {
         titleText.setText("中国");
-        backButton.setVisibility(View.GONE);
+        backImageView.setVisibility(View.GONE);
         provinceList = DataSupport.findAll(Province.class);
         if (provinceList.size() > 0) {
             dataList.clear();
@@ -150,7 +150,7 @@ public class ChooseAreaFragment extends Fragment {
 
     private void queryCities() {
         titleText.setText(selectedProvince.getProvinceName());
-        backButton.setVisibility(View.VISIBLE);
+        backImageView.setVisibility(View.VISIBLE);
         cityList = DataSupport.where("provinceid = ?",
                 String.valueOf(selectedProvince.getId())).find(City.class);
         if (cityList.size() > 0) {
@@ -170,7 +170,7 @@ public class ChooseAreaFragment extends Fragment {
 
     private void queryCounties() {
         titleText.setText(selectedCity.getCityName());
-        backButton.setVisibility(View.VISIBLE);
+        backImageView.setVisibility(View.VISIBLE);
         countyList = DataSupport.where("cityid = ?",
                 String.valueOf(selectedCity.getId())).find(County.class);
         if (countyList.size() > 0) {
